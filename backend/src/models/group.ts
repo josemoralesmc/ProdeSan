@@ -16,7 +16,7 @@ const group = new mongoose.Schema({
         type: String,
         require
     },
-    Tabla:{
+    Table:{
         type:Object,
         default: {}
     }

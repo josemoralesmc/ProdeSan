@@ -6,7 +6,7 @@ export default class GroupRepository {
       const newGroup = new GroupModel({ GroupID:groupId, LeagueId: idLeague, Name: nameGroup });
       return await newGroup.save();
     } catch (error) {
-      console.log(error);
+      throw error
     }
   }
   async getGroup(groupId: string,) {
@@ -14,7 +14,15 @@ export default class GroupRepository {
       const group = await GroupModel.find({GroupID: groupId})
       return group
     } catch (error) {
-      console.log(error);
+      throw error
+    }
+  }
+  async getGroupUser(idUser: string) {
+    try {
+      const group = await GroupModel.find({UsersId: idUser})
+      return group
+    } catch (error) {
+      throw error
     }
   }
 
@@ -25,8 +33,21 @@ export default class GroupRepository {
         
         return addUser
     } catch (error) {
-     console.log(error);
+      throw error
         
+    }
+  }
+  async addPointsTable(totalPoints: number, username: string, groupId: string){
+    try {
+      const response = GroupModel.findOneAndUpdate(
+        { GroupID: groupId },
+        { $inc: { [`Table.${username}`]: totalPoints } }, 
+        { new: true, upsert: true }, 
+      )
+       
+        return response
+    } catch (error) {
+      throw error   
     }
   }
 }

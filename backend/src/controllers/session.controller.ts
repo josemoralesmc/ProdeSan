@@ -13,12 +13,13 @@ export class UserController {
     const usersService = UsersService.getInstance();
     try {
       const user = await usersService.getUser({ mail, password });
+      const username = user.Items[0].userName.S
       
       const id = user.Items[0].id.S;
       if (!isValidatePassword(password, user.Items[0].password.S)) {
         return res.json("Contraseña incorrecta");
       }
-      const token = generateToken(mail, id);
+      const token = generateToken(mail, id, username);
      
 
       return res.json({success: true, message: "Login successes", data: token, });
@@ -46,13 +47,9 @@ export class UserController {
         return res.json({ success: false, message: "User already exists" })
       }
       
-      console.log(newUser);
-      
       await usersService.postUser(newUser);
       return res.json({success: true, message: "User created"});
     } catch (error) {
-      console.log(error);
-
       return res.json({success: false,message: "Registration failed",data: error});
     }
   }

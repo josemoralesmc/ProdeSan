@@ -2,7 +2,7 @@ import express from "express";
 import config from "./config/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import routerLeague from "./routes/league.routes";
+import routerLeague from "./routes/predict.routes";
 import routerSession from './routes/session.routes'
 import groupLeague from './routes/group.routes'
 import { runMongo } from "../database/mongo";
