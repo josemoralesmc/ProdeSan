@@ -7,7 +7,7 @@ const predictUser = new mongoose.Schema({
     },
     UserId: {
         type: String,
-        unique: true
+        require
     },
     LeagueId: {
         type: String,
