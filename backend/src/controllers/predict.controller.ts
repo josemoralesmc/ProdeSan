@@ -6,6 +6,10 @@ import MatchLeague from "../utils/scrap";
 import { Request, Response } from "express";
 
 export default class LeagueController {
+  async results(req: Request, res: Response){
+    const result = await MatchLeague()
+    res.json(result)
+  }
   async savePredict(req: Request, res: Response) {
     try {
       const leagueService = LeagueService.getInstance();
@@ -27,7 +31,7 @@ export default class LeagueController {
     }
   }
 
-  async predictResult(req: Request, res: Response) {
+/*   async predictResult(req: Request, res: Response) {
     const leagueService = LeagueService.getInstance();
     const { leagueId, groupId, dateNumber } = req.params;
     const token = req.headers.authorization?.split(" ")[1] ?? "";
@@ -46,5 +50,5 @@ export default class LeagueController {
     const groupService = GroupService.getInstance()
     const response = await groupService.addPointsTable(  totalPoints, username, groupId )
     return res.json({success: true, message: "predict results saved successfully", data: {response, score} });
-  }
+  } */
 }

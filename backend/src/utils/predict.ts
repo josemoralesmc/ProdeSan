@@ -1,8 +1,13 @@
-export const pointsUser = (predictUser: Array<any>, resulMatch: Array<any>, dateNumber: string) => {
-    let totalPoints: number = 0;
-    let matchPoints: number = 0;
+export const pointsUser = (
+  predictUser: Array<any>,
+  resulMatch: Array<any>,
+  dateNumber: string
+) => {
+  let totalPoints: number = 0;
+  let matchPoints: number = 0;
 
-    const score = resulMatch.map((match: any, index: any) => {
+  const score = resulMatch.map((match: any, index: any) => {
+      
       if (match.tournamentDate[0].split(" ")[1] == dateNumber) {
         if (predictUser) {
           const predi = predictUser[0].PredictUser[index];
@@ -29,9 +34,9 @@ export const pointsUser = (predictUser: Array<any>, resulMatch: Array<any>, date
             totalPoints += 0;
             matchPoints = 0;
           }
-          return { matchPoints, predi, match};
+          return { matchPoints, predi, match };
         }
       }
-    });
-    return {totalPoints, score}
-}
+  });
+  return { totalPoints, score };
+};
