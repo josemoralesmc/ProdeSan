@@ -6,7 +6,6 @@ import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import TextField from "@mui/material/TextField";
 import { Button } from "@nextui-org/react";
-import createGroup from "@/services/groupsService";
 
 const CreateGroup = () => {
     
