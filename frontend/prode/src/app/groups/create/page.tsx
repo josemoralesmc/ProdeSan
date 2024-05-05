@@ -5,6 +5,7 @@ import NativeSelect from "@mui/material/NativeSelect";
 import TextField from "@mui/material/TextField";
 import { Button } from "@nextui-org/react";
 import createGroup from "@/services/groupsService";
+import CreateGroupComponent from "@/components/CreateGroup";
 
 const CreateGroup = () => {
   return (
@@ -14,6 +15,7 @@ const CreateGroup = () => {
           <h1 className="text-center mt-2">Crear Grupo</h1>
         </div>
       </div>
+      <CreateGroupComponent/>
     </div>
   );
 };
