@@ -46,8 +46,10 @@ export default class GroupController{
     async addUserGroup(req:Request, res: Response){
         try {
             const groupService = await GroupService.getInstance()
-            const {groupId, userId} = req.body
-            const addUser = await groupService.addUserGroup(userId, groupId)
+            const token = req.headers.authorization?.split(" ")[1] ?? "";
+            const {id, username} = extractIdandUserToken(token)
+            const {groupId} = req.body
+            const addUser = await groupService.addUserGroup(id, groupId)
             return res.json({success: true, message: "user added successfully", data: addUser });
             
         } catch (error) {

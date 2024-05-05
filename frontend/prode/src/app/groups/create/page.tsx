@@ -1,10 +1,3 @@
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import NativeSelect from "@mui/material/NativeSelect";
-import TextField from "@mui/material/TextField";
-import { Button } from "@nextui-org/react";
-import createGroup from "@/services/groupsService";
 import CreateGroupComponent from "@/components/CreateGroup";
 
 const CreateGroup = () => {

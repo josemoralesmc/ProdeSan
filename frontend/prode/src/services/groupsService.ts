@@ -22,18 +22,17 @@ async function createGroup(nameGroup: string, leagueId: string){
     }
 } 
 
-async function addUserGroup(groupId: string, userId: string){
+async function addUserGroup(groupId: string){
     try {
         const token = Cookies.get("Token")
-        const response = await fetch('http://localhost:3000/group/addUser', {
+        const response = await fetch('http://localhost:8080/group/addUser', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
               },
               body: JSON.stringify({
-                groupId,
-                userId
+                groupId
               })
         })
         const data = await response.json()

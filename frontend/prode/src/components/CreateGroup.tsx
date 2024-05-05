@@ -45,10 +45,7 @@ const CreateGroup = () => {
           </Box>
         </div>
         <div>
-          <Button onClick={async () =>{const response = await groupsService.createGroup(nameGroup, leagueId)
-                                      console.log(leagueId);
-                                      
-          }} className="bg-white/75 mt-4" radius="sm">
+          <Button onClick={() =>{groupsService.createGroup(nameGroup, leagueId)}} className="bg-white/75 mt-4" radius="sm">
             Crear Grupo
           </Button>
         </div>
