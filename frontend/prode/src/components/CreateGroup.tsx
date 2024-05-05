@@ -28,9 +28,7 @@ const CreateGroup = () => {
         <div className="flex items-center justify-center bg-white bg-opacity-75 rounded-2xl w-72 h-16">
           <Box sx={{ minWidth: 250 }}>
             <FormControl fullWidth>
-              <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                Liga
-              </InputLabel>
+             
               <NativeSelect
                 value={leagueId}
                 onChange={(e) => setLeagueId(e.target.value)}
@@ -39,6 +37,7 @@ const CreateGroup = () => {
                   id: "uncontrolled-native",
                 }}
               >
+                <option value={""}>Seleccionar Liga</option>
                 <option value={"LPF"}>LPF</option>
                 <option value={"premier"}>Premier League</option>
               </NativeSelect>
