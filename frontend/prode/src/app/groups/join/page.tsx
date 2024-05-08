@@ -21,6 +21,14 @@ const CreateGroup = () => {
           variant="standard"
         />
       </div>
+      <div className="flex items-center justify-center bg-white bg-opacity-75 rounded-2xl w-72 h-16">
+        <TextField
+          className="w-60"
+          id="standard-basic"
+          label="Id del grupo"
+          variant="standard"
+        />
+      </div>
       
       <div>
       <Button className="bg-white/75 mt-4" radius="sm">Unirme</Button>
