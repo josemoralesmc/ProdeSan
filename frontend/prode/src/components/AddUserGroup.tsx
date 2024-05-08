@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import groupsService from '@/services/groupsService'
 
 
-const addUserGroupComponent = () => {
+const AddUserGroupComponent = () => {
     const [idGroup, setIdGroup] = useState('')
     const [idUser, setIdUser] = useState('')
     return (
@@ -38,4 +38,4 @@ const addUserGroupComponent = () => {
     )
 }
 
-export default addUserGroupComponent
+export default AddUserGroupComponent
