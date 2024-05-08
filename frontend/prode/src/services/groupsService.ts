@@ -15,7 +15,6 @@ async function createGroup(nameGroup: string, leagueId: string){
               })
         })
         const data = await response.json()
-        console.log(data);
         
     } catch (error) {
         console.error("Error al realizar la solicitud:", error);
