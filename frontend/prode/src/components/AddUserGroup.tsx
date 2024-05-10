@@ -20,7 +20,7 @@ const AddUserGroupComponent = () => {
                     onChange={(e)=> setIdGroup(e.target.value)}
                 />
             </div>
-            <div className="flex items-center justify-center bg-white bg-opacity-75 rounded-2xl w-72 h-16">
+            <div className="flex items-center justify-center bg-white bg-opacity-75 rounded-2xl w-72 h-16 mt-4">
                 <TextField
                     className="w-60"
                     id="standard-basic"
@@ -32,7 +32,7 @@ const AddUserGroupComponent = () => {
             </div>
 
             <div>
-                <Button onClick={() => groupsService.addUserGroup(idUser, idGroup)} className="bg-white/75 mt-4" radius="sm">Unirme</Button>
+                <Button onClick={() => groupsService.addUserGroup(idUser, idGroup)} className="bg-white/75 mt-4" radius="sm">Agregar</Button>
             </div>
         </>
     )
