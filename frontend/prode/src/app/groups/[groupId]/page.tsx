@@ -1,9 +1,7 @@
-
-
 const Group = () => {
   return (
     <div>
-      
+      Hola
     </div>
   );
 };
