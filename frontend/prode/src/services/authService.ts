@@ -8,6 +8,7 @@ async function login(mail: string, password: string): Promise<any> {
       body: JSON.stringify({ mail, password }),
     });
     const data = await response.json();
+    
     return data;
   } catch (error) {
     console.error("Error al iniciar sesión:", error);

@@ -7,9 +7,12 @@ export default class GroupController{
         try {
             const groupService = await GroupService.getInstance()
             const uid = new ShortUniqueId({length: 7})
+            const token = req.headers.authorization?.split(" ")[1] ?? "";
+            const {id, username} = extractIdandUserToken(token)
             const {nameGroup, leagueId} = req.body
             const groupId = uid.rnd()
             const create = await groupService.CreateGroupe(nameGroup, leagueId, groupId)
+            await groupService.addUserGroup(id, groupId)
             return res.json({success: true, message: "group created successfully", data: create });
             
         } catch (error) {
@@ -22,10 +25,11 @@ export default class GroupController{
             const groupService = await GroupService.getInstance()
             const token = req.headers.authorization?.split(" ")[1] ?? "";
             const {id, username} = extractIdandUserToken(token)
-            const groups = await groupService.getGroupUser(username)
+            const groups = await groupService.getGroupUser(id)
             return res.json({success: true, message: "groups user obtained successfully", data: groups });
             
         } catch (error) {
+            
             res.json({success: false, message: "error getting groups user", data: error });
             
         }

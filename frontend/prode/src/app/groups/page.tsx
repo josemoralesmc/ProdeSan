@@ -10,12 +10,12 @@ export default function Home() {
         </div>
       </div>
       <div>
-        <ListGroup />
+        <ListGroup /> 
       </div>
       <div className="flex justify-center">
         <div>
           <Link href={"/groups/create"}>
-          <Button className="bg-white/75" radius="sm">Crear grupo</Button>
+          <Button className="bg-white/75" radius="sm">Crear grupo </Button>
           </Link>
         </div>
         <div>

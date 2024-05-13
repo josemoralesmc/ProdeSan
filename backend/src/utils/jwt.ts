@@ -49,6 +49,7 @@ export const refreshToken = (token: any): any => {
 
 
 export function extractIdandUserToken(token: string): any {
+  
   const { id, username} = jwt.verify(token, config.SECRET_JWT)  as Token
   
   return {id, username}

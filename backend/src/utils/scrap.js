@@ -4,7 +4,7 @@ export default async function MatchLeague() {
   const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
   await page.goto(
-    "https://www.ligaprofesional.ar/copa-2024/"
+    "https://www.ligaprofesional.ar/torneo-2024/"
   );
   await page.waitForSelector(".Opta-On");
   await page.waitForSelector(".Opta-fixture");
