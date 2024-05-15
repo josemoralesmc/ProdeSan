@@ -1,9 +1,8 @@
 
 import TablePoints from "@/components/TablePoints";
 
-export default function Group() {
+export default function Group({params}: any) {
   return (
-    <TablePoints/>
-    
+    <TablePoints params={params.groupId}/>
   );
 }

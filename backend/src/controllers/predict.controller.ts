@@ -31,7 +31,7 @@ export default class LeagueController {
     }
   }
 
-/*   async predictResult(req: Request, res: Response) {
+  async predictResult(req: Request, res: Response) {
     const leagueService = LeagueService.getInstance();
     const { leagueId, groupId, dateNumber } = req.params;
     const token = req.headers.authorization?.split(" ")[1] ?? "";
@@ -50,5 +50,5 @@ export default class LeagueController {
     const groupService = GroupService.getInstance()
     const response = await groupService.addPointsTable(  totalPoints, username, groupId )
     return res.json({success: true, message: "predict results saved successfully", data: {response, score} });
-  } */
+  }
 }

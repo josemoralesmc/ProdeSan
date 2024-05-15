@@ -6,10 +6,22 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import groupsService from "@/services/groupsService";
+import { cookies } from "next/headers";
 
+async function getGroups(token: any, groupId: string) {
+  const data = await groupsService.getGroupsId(token, groupId);
+  console.log(data);
+  
+  return data;
+}
 
-
-const TablePoints = () => {
+const TablePoints = async (params: any) => {
+  const cookieStore = cookies();
+  const token = cookieStore.get("Token");
+  const data = await getGroups( token?.value, params)
+  console.log(data);
+  
   return (
     <div className="w-64 mx-auto">
     <TableContainer component={Paper}>
