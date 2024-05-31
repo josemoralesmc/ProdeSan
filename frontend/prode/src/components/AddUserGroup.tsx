@@ -32,7 +32,7 @@ const AddUserGroupComponent = () => {
             </div>
 
             <div>
-                <Button onClick={() => groupsService.addUserGroup(idUser, idGroup)} className="bg-white/75 mt-4" radius="sm">Agregar</Button>
+                <Button onClick={() => groupsService.addUserGroup(idGroup, idUser)} className="bg-white/75 mt-4" radius="sm">Agregar</Button>
             </div>
         </>
     )

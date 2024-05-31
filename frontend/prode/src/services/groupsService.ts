@@ -41,7 +41,7 @@ async function createGroup(nameGroup: string, leagueId: string){
 async function addUserGroup(groupId: string, userId: string){
     try {
         const token = Cookies.get("Token")
-        const response = await fetch('http://localhost:3000/group/addUser', {
+        const response = await fetch('http://localhost:8080/group/addUser', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -61,6 +61,7 @@ async function addUserGroup(groupId: string, userId: string){
 
 async function getGroupsId(token: string | undefined, groupID: string){
     try {
+        
         const response = await fetch(`http://localhost:8080/group/${groupID}`, {
             headers: {
                 "Content-Type": "application/json",
@@ -75,6 +76,8 @@ async function getGroupsId(token: string | undefined, groupID: string){
         console.error("Error al realizar la solicitud:", error);
     }
 } 
+
+
 
 
 export default {createGroup, addUserGroup, getGroups, getGroupsId}

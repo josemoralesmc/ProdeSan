@@ -11,19 +11,21 @@ import { cookies } from "next/headers";
 
 async function getGroups(token: any, groupId: string) {
   const data = await groupsService.getGroupsId(token, groupId);
-  console.log(data);
-  
   return data;
 }
 
 const TablePoints = async (params: any) => {
   const cookieStore = cookies();
   const token = cookieStore.get("Token");
-  const data = await getGroups( token?.value, params)
-  console.log(data);
+  
+  
+  const res = await getGroups( token?.value, params.params)
+  const data = res.data[0].Table
+  
+  
   
   return (
-    <div className="w-64 mx-auto">
+    <div className="w-64 mx-auto mb-7">
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200 }} size="small" aria-label="a dense table">
         <TableHead>
@@ -33,12 +35,18 @@ const TablePoints = async (params: any) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
-            <TableCell component="th" scope="row">
-              Hola
-            </TableCell>
-            <TableCell>123</TableCell>
-          </TableRow>
+        {data ? (Object?.entries(data).map(([username, points]: any) => (
+              <TableRow key={username}>
+                <TableCell component="th" scope="row">
+                  {username}
+                </TableCell>
+                <TableCell>{points}</TableCell>
+              </TableRow>
+            ))): (
+              <TableRow>
+                <TableCell colSpan={2}>Sin datos</TableCell>
+              </TableRow>
+            )}
         </TableBody>
       </Table>
     </TableContainer>

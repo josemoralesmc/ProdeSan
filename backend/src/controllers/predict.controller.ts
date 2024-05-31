@@ -3,6 +3,7 @@ import LeagueService from "../services/predict.service";
 import { extractIdandUserToken } from "../utils/jwt";
 import { pointsUser } from "../utils/predict";
 import MatchLeague from "../utils/scrap";
+import nextMatchs from "../utils/scrapnext";
 import { Request, Response } from "express";
 
 export default class LeagueController {
@@ -10,10 +11,16 @@ export default class LeagueController {
     const result = await MatchLeague()
     res.json(result)
   }
+  async nextsMatchs(req: Request, res: Response){
+    const result = await nextMatchs()
+    res.json(result)
+  }
   async savePredict(req: Request, res: Response) {
     try {
       const leagueService = LeagueService.getInstance();
       const { prediction } = req.body;
+      console.log(prediction);
+      
       const { leagueId, groupId, dateNumber } = req.params;
       const token = req.headers.authorization?.split(" ")[1] ?? "";
       const idUser = extractIdandUserToken(token);
@@ -45,10 +52,29 @@ export default class LeagueController {
       dateNumber
     );
     
-    const resulMatch = await MatchLeague();
+    const resulMatch: any | undefined = await MatchLeague();
+    
     const {totalPoints, score}: any | undefined = pointsUser(predict, resulMatch, dateNumber)
     const groupService = GroupService.getInstance()
     const response = await groupService.addPointsTable(  totalPoints, username, groupId )
     return res.json({success: true, message: "predict results saved successfully", data: {response, score} });
   }
+  async getPredict(req: Request, res: Response) {
+
+    const leagueService = LeagueService.getInstance();
+    const { leagueId, groupId, dateNumber } = req.params;
+    const token = req.headers.authorization?.split(" ")[1] ?? "";
+    const userId = extractIdandUserToken(token);
+  
+    const predict: any = await leagueService.getPredict(
+      groupId,
+      leagueId,
+      userId.id,
+      dateNumber
+    );
+    
+    return res.json({success: true, message: "predic get", data: {predict} });
+  }
+  
 }
+

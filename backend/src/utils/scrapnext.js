@@ -1,11 +1,16 @@
 const puppeteer = require('puppeteer');
 
-async function MatchLeague() {
-  const browser = await puppeteer.launch({ headless: "new" });
+async function NextMatchs() {
+  const browser = await puppeteer.launch({ headless: "new" }); 
   const page = await browser.newPage();
-  await page.goto(
-    "https://www.ligaprofesional.ar/torneo-2024/"
-  );
+
+  // Navegar a la página web
+  await page.goto('https://www.ligaprofesional.ar/torneo-2024/');
+
+  // Esperar a que la página cargue completamente
+  await page.waitForSelector('.Opta-Cf');
+  await page.waitForSelector('.Opta-On');
+  await page.waitForSelector('a');
   await page.waitForSelector(".Opta-TabbedContent");
   await page.waitForSelector(".Opta-On");
   await page.waitForSelector(".Opta-fixture");
@@ -23,29 +28,47 @@ async function MatchLeague() {
   await page.waitForSelector("span");
   await page.waitForSelector("img");
 
-  // Obtener el texto de la fecha actual
+  // Obtener el enlace correspondiente a la fecha actual
   const fechaActualElement = await page.$('.Opta-Cf .Opta-On');
   const fechaActual = await page.evaluate(fechaActualElement => fechaActualElement.innerText, fechaActualElement);
-  const tournamentDate = [fechaActual];
 
-  const result = await page.evaluate((tournamentDate) => {
+  // Encontrar el siguiente enlace de fecha
+  const siguienteFechaElement = await page.evaluateHandle(() => {
+    const fechaActualElement = document.querySelector('.Opta-Cf .Opta-On'); // Elemento de la fecha actual
+    const siguienteFechaElement = fechaActualElement.nextElementSibling; // Elemento siguiente al de la fecha actual
+    fechaActualElement.classList.remove('Opta-On'); // Remover la clase Opta-On del elemento de la fecha actual
+    siguienteFechaElement.classList.add('Opta-On'); // Agregar la clase Opta-On al elemento siguiente
+    return siguienteFechaElement.querySelector('a'); // Devolver el enlace dentro del elemento siguiente
+  });
+
+  // Hacer clic en el enlace de la siguiente fecha
+  await siguienteFechaElement.click();
+
+  await page.waitForSelector('.Opta-fixture');
+  
+  // Extraer los datos de los partidos de la siguiente fecha
+  const results = await page.evaluate(() => {
     const data = [];
+    const tournamentDate = [];
     
+    const date = document.querySelector(".Opta-Cf .Opta-On a").innerHTML
+    tournamentDate.push(date)
     const matches = document.querySelectorAll(".Opta-On div table .Opta-fixture");
-    
+
     matches.forEach((match) => {
       const matchDate = [];
       const teamsName = [];
       const resultMatch = [];
       const teamsPhoto = [];
       
+      const time = match.querySelectorAll(".Opta-Scoreline td abbr");
+      const teams = match.querySelectorAll(".Opta-Team");
       const photos = match.querySelectorAll(".Opta-Crest span img");
+     
       photos.forEach((team) => {
           const src = team.getAttribute('src');
           teamsPhoto.push(src);
       });
-
-      const teams = match.querySelectorAll(".Opta-Team");
       teams.forEach((team) => {
         teamsName.push(team.innerText);
       });
@@ -62,11 +85,12 @@ async function MatchLeague() {
 
       data.push({ matchDate, teamsName, teamsPhoto, resultMatch, tournamentDate });
     });
+    
     return data;
-  }, tournamentDate);  
+  });
 
   await browser.close();
-  return result;
-}
+  return results
+};
 
-module.exports = MatchLeague;
+module.exports = NextMatchs
